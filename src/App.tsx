@@ -1,6 +1,7 @@
-import A from "./testLearn/test4";
+import ReactPlayground from "./pages/ReactPlayground";
+import "./App.scss";
 function App() {
-  return <A />;
+  return <ReactPlayground />;
 }
 
 export default App;
