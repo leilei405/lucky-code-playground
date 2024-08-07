@@ -6,7 +6,8 @@ import styles from "./index.module.scss";
 import { PlaygroundContext } from "../../context";
 
 export default function CodeEditor() {
-  const { files, setFiles, selectedFileName } = useContext(PlaygroundContext);
+  const { theme, files, setFiles, selectedFileName } =
+    useContext(PlaygroundContext);
 
   const file = files[selectedFileName];
 
@@ -18,7 +19,13 @@ export default function CodeEditor() {
   return (
     <div className={styles.editor}>
       <FileNameList />
-      <Editor file={file} onChange={debounce(onEditorChange, 800)} />
+      <Editor
+        file={file}
+        onChange={debounce(onEditorChange, 800)}
+        options={{
+          theme: `vs-${theme}`,
+        }}
+      />
     </div>
   );
 }

@@ -5,10 +5,19 @@ import { PlaygroundContext } from "../../context";
 
 import iframeRaw from "./iframe.html?raw";
 import { IMPORT_MAP_FILE_NAME } from "../../pages//ReactPlayground/files";
+import { Message } from "../Message";
+
+interface MessageData {
+  data: {
+    type: string;
+    message: string;
+  };
+}
 
 export default function Preview() {
   const { files } = useContext(PlaygroundContext);
   const [compiledCode, setCompiledCode] = useState("");
+  const [error, setError] = useState("");
   const getIframeUrl = () => {
     const res = iframeRaw
       .replace(
@@ -33,6 +42,20 @@ export default function Preview() {
     setIframeUrl(getIframeUrl());
   }, [files[IMPORT_MAP_FILE_NAME].value, compiledCode]);
 
+  const handleMessage = (msg: MessageData) => {
+    const { type, message } = msg.data;
+    if (type === "ERROR") {
+      setError(message);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("message", handleMessage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
+
   return (
     <div style={{ height: "100%" }}>
       <iframe
@@ -44,6 +67,7 @@ export default function Preview() {
           border: "none",
         }}
       />
+      <Message type="error" content={error} />
     </div>
   );
 }
