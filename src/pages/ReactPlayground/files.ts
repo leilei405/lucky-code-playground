@@ -28,11 +28,6 @@ export const initFiles: Files = {
     language: "css",
     value: AppCss,
   },
-  "test1.css": {
-    name: "App.css",
-    language: "css",
-    value: AppCss,
-  },
   [IMPORT_MAP_FILE_NAME]: {
     name: IMPORT_MAP_FILE_NAME,
     language: fileName2Language(IMPORT_MAP_FILE_NAME),
