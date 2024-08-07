@@ -19,7 +19,7 @@ export default function FileNameList() {
   } = useContext(PlaygroundContext);
 
   const [tabs, setTabs] = useState([""]);
-  const [creating, setCreating] = useState(false);
+  const [, setCreating] = useState(false);
 
   const handleClickTab = (name: string) => {
     setSelectedFileName(name);
