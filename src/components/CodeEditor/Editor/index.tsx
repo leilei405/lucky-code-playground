@@ -1,7 +1,6 @@
 import MonacoEditor, { EditorProps, OnMount } from "@monaco-editor/react";
 import { createATA } from "./ata";
 import { editor } from "monaco-editor";
-import { fileName2Language } from "../../../utils/";
 
 export interface EditorFile {
   name: string;

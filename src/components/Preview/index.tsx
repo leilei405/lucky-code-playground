@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { compile } from "./compiler";
-import Editor from "../CodeEditor/Editor";
 import { PlaygroundContext } from "../../context";
 
 import iframeRaw from "./iframe.html?raw";

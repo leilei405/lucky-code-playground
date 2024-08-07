@@ -1,7 +1,7 @@
 import { strFromU8, strToU8, unzlibSync, zlibSync } from "fflate";
+import saveAs from "file-saver";
 import JSZip from "jszip";
 import { Files } from "../context";
-import saveAs from "file-saver";
 
 export const fileName2Language = (name: string) => {
   const suffix = name.split(".").pop() || "";
