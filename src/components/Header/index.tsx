@@ -7,7 +7,6 @@ import {
   DownloadOutlined,
 } from "@ant-design/icons";
 import copy from "copy-to-clipboard";
-import logoSvg from "../../icons/logo.svg";
 import styles from "./index.module.scss";
 import { PlaygroundContext } from "../../context";
 import { downloadFiles } from "../../utils";
@@ -20,7 +19,10 @@ export default function Header() {
   return (
     <div className={styles.header}>
       <div className={styles.logo}>
-        <img alt="logo" src={logoSvg} />
+        <img
+          alt="logo"
+          src="https://lucky-file-project.oss-cn-hangzhou.aliyuncs.com/react.svg"
+        />
         <span>React Playground</span>
         <Button onClick={handleOpenUrl} size="large" type="link">
           源码地址
