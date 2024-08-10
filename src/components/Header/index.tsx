@@ -13,15 +13,17 @@ import { downloadFiles } from "../../utils";
 
 export default function Header() {
   const { theme, setTheme, files } = useContext(PlaygroundContext);
+
   const handleOpenUrl = () => {
     window.open("https://github.com/leilei405/lucky-code-playground", "_blank");
   };
+
   return (
     <div className={styles.header}>
       <div className={styles.logo}>
         <img
           alt="logo"
-          src="https://lucky-file-project.oss-cn-hangzhou.aliyuncs.com/react.svg"
+          src="https://lucky-file-project.oss-cn-hangzhou.aliyuncs.com/lucky.png"
         />
         <span>React Playground</span>
         <Button onClick={handleOpenUrl} size="large" type="link">

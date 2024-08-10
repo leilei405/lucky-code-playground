@@ -38,7 +38,7 @@ export default function FileNameList() {
 
   // 添加文件
   const addTab = () => {
-    const newFileName = "Comp" + Math.random().toString().slice(2, 8) + ".tsx";
+    const newFileName = "App" + Math.random().toString().slice(2, 4) + ".tsx";
     addFile(newFileName);
     setSelectedFileName(newFileName);
     setCreating(true);

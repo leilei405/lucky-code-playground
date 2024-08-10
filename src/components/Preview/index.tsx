@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from "react";
-import { compile } from "./compiler";
+import { useContext, useEffect, useRef, useState } from "react";
 import { PlaygroundContext } from "../../context";
-
 import iframeRaw from "./iframe.html?raw";
 import { IMPORT_MAP_FILE_NAME } from "../../pages//ReactPlayground/files";
 import { Message } from "../Message";
+import CompilerWorker from "./compiler.worker?worker";
 
 interface MessageData {
   data: {
@@ -17,6 +16,25 @@ export default function Preview() {
   const { files } = useContext(PlaygroundContext);
   const [compiledCode, setCompiledCode] = useState("");
   const [error, setError] = useState("");
+
+  const compilerWorkerRef = useRef<Worker>();
+
+  useEffect(() => {
+    if (!compilerWorkerRef.current) {
+      compilerWorkerRef.current = new CompilerWorker();
+      compilerWorkerRef.current.addEventListener("message", ({ data }) => {
+        console.log("worker", data);
+        if (data.type === "COMPILED_CODE") {
+          setCompiledCode(data.data);
+        }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    compilerWorkerRef.current?.postMessage(files);
+  }, [files]);
+
   const getIframeUrl = () => {
     const res = iframeRaw
       .replace(
@@ -30,16 +48,11 @@ export default function Preview() {
     return URL.createObjectURL(new Blob([res], { type: "text/html" }));
   };
 
-  const [iframeUrl, setIframeUrl] = useState(getIframeUrl());
-
-  useEffect(() => {
-    const res = compile(files);
-    setCompiledCode(res);
-  }, [files]);
-
   useEffect(() => {
     setIframeUrl(getIframeUrl());
   }, [files[IMPORT_MAP_FILE_NAME].value, compiledCode]);
+
+  const [iframeUrl, setIframeUrl] = useState(getIframeUrl());
 
   const handleMessage = (msg: MessageData) => {
     const { type, message } = msg.data;
